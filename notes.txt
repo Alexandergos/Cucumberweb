@@ -1,0 +1,12 @@
+All Mac users, if you want to be in-sync with my environment, you may install same Ruby version from Terminal by running following command:
+curl -sSL https://get.rvm.io | bash -s stable --ruby=ruby-2.3.0
+if you do not get any errors, you will need to run following command  thereafter:
+rvm --default use 2.3.0
+then, 
+ruby -v 
+will show if you have correct Ruby version installed
+
+new video for Mac Ruby installation  
+https://www.youtube.com/watch?v=uhNV3zkN7yo&t=2s&index=7&list=PLhtuvi3zVO5bgG8tpSZVrgswCT-6tqEmY
+for Windows users 
+https://www.youtube.com/watch?v=NuLmYtGDCUQ&list=PLhtuvi3zVO5bgG8tpSZVrgswCT-6tqEmY&t=90s&index=2
