@@ -1,0 +1,3 @@
+# to run by profile  $cucumber -p <profile_name>
+login_tests: --format html --out test_report.html --format pretty --tags @login
+dropdown_tests: --format html --out test_report.html --format pretty --tags @dropdown
