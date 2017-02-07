@@ -1,34 +1,35 @@
 When(/^I login with "([^"]*)" username and "([^"]*)" password$/) do |username, password|
-  url = "https://#{username}:#{password}@the-internet.herokuapp.com/basic_auth"
-  @browser.get url
+  @basic_auth.with(username, password)
 end
 
-Then(/^Succesful login message "([^"]*)" appears$/) do |message|
-  expect(@browser.find_element(:css, ".example p").text).to eq(message)
+Then(/^I should see the "([^"]*)" message$/) do |message|
+  expect(@basic_auth.success_message.text).to eq(message)
 end
 
-### dropdown feature ###
-
-Given(/^I navigate to page "([^"]*)"$/) do |page_name|
-  @browser.get "https://the-internet.herokuapp.com/#{page_name}"
+Given(/^I move to "([^"]*)" page(?: "([^"]*)")?$/) do |page, *path|
+  instance_variable_get("@#{page}").visit(path)
 end
 
-When(/^I select "([^"]*)" from dropdown list$/) do |option|
-  dropdown = @browser.find_element(id: "dropdown")
-  @selected_list = Selenium::WebDriver::Support::Select.new dropdown
-  @selected_list.select_by(:text, option)
+Then(/^I select "([^"]*)" from dropdown$/) do |option|
+  @dropdown.select(option)
 end
 
-Then(/^I verify selected element "([^"]*)"$/) do |expected_selected_option|
-  actual_selected_option = @selected_list.selected_options[0].text
-  expect(actual_selected_option).to eq expected_selected_option
+Then(/^I should see the "([^"]*)" selected$/) do |expected_selected_option|
+  actual_selected_option = @dropdown.selected_option
+  expect(actual_selected_option).to eql expected_selected_option
 end
 
+Then(/^I check if (\d*)(?:st|nd|rd|th) box is selected$/) do |index|
+  # TODO: read about equality matchers
+  # https://www.relishapp.com/rspec/rspec-expectations/v/2-2/docs/matchers/equality-matchers
+  expect(@checkboxes.is_checked? index).to eql true
+end
 
+When(/^I click on start button/) do
+  @dynamic_loading.start_button.click
+end
 
-
-
-
-
-
-
+Then(/^"([^"]*)" message is displayed$/) do |message|
+  @dynamic_loading.success_message_displayed?
+  expect(@dynamic_loading.finish_element.text).to eql(message)
+end

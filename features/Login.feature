@@ -1,7 +1,7 @@
-@login
-Feature: Standard login
+@login  @acceptance
+Feature: Basic Authentication
 
-  @basic_auth
-  Scenario: Authentication with valid credentials
-    When I login with "admin" username and "admin" password
-    Then Succesful login message "Congratulations! You must have the proper credentials." appears
+  Scenario: User with valid credential can login
+    Given I login with "admin" username and "admin" password
+    When I should see the "Congratulations! You must have the proper credentials." message
+
